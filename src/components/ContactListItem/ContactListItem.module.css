@@ -1,0 +1,20 @@
+.contactItem {
+  width: 100%;
+}
+
+.btnDel {
+  margin-left: 40px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  color: white;
+  background: #0b63f6;
+  box-shadow: 0 5px 0 #003cc5;
+}
+
+.btnDel:hover {
+  background: #003cc5;
+  box-shadow: none;
+  position: relative;
+  top: 5px;
+}
