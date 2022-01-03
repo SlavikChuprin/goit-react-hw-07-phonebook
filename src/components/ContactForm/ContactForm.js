@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import s from './ContactForm.module.css';
 import { useState } from 'react';
 import { useCreateContactMutation } from '../../redux/contacts/contactsSlice';
@@ -72,13 +71,7 @@ function ContactForm() {
       </label>
       <button type="submit" className={s.btn} disabled={isUpdating}>
         {isUpdating ? (
-          <Loader
-            type="Circles"
-            color="lightblue"
-            height={25}
-            width={25}
-            timeout={0}
-          />
+          <Loader type="Circles" color="lightblue" height={20} width={100} />
         ) : (
           'Add contact'
         )}
@@ -86,7 +79,5 @@ function ContactForm() {
     </form>
   );
 }
-
-ContactForm.propTypes = { onSubmit: PropTypes.func.isRequired };
 
 export default ContactForm;

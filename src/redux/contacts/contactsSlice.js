@@ -8,7 +8,7 @@ export const contactsApi = createApi({
   tagTypes: ['contact'],
   endpoints: builder => ({
     fetchContacts: builder.query({
-      query: () => '/contacts',
+      query: () => `/contacts/`,
       providesTags: ['contact'],
     }),
     deleteContact: builder.mutation({
@@ -28,10 +28,6 @@ export const contactsApi = createApi({
         },
       }),
       invalidatesTags: ['contact'],
-    }),
-    filterContacts: builder.query({
-      query: filter => `/contacts/${filter}',
-      providesTags: ['contact'],
     }),
   }),
 });

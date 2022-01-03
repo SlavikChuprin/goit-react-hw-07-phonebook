@@ -1,21 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import s from './Filter.module.css';
 import { useSelector, useDispatch } from 'react-redux';
+import { filterValue } from '../../redux/contacts/selectors';
 import { filterContact } from '../../redux/contacts/actions';
-import { getFilter, getContacts } from '../../redux/contacts/selectors';
-import { useState } from 'react';
+import { useFetchContactsQuery } from '../../redux/contacts/contactsSlice';
 
-const Filter = ({ value, onChange }) => {
-  const { data: contacts } = useFetchContactsQuery();
-
-  const [filter, getFilter] = useState(contacts);
+const Filter = () => {
   const dispatch = useDispatch();
-  const filter = useSelector(getFilter);
-  const contacts = useSelector(getContacts);
-  if (!contacts.length)
-    return <p>Your phonebook is empty. Please add contact.</p>;
+  const filter = useSelector(filterValue);
+  const { data: contacts, isLoading } = useFetchContactsQuery();
 
+  if (!isLoading && !contacts.length) {
+    return <p>Your phonebook is empty. Please add contact.</p>;
+  }
   return (
     <div className={s.filterWrapper}>
       <label>
@@ -29,11 +26,6 @@ const Filter = ({ value, onChange }) => {
       </label>
     </div>
   );
-};
-
-Filter.prototype = {
-  value: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
 };
 
 export default Filter;
