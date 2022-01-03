@@ -2,11 +2,14 @@ import PropTypes from 'prop-types';
 import s from './ContactForm.module.css';
 import { useState } from 'react';
 import { useCreateContactMutation } from '../../redux/contacts/contactsSlice';
+import { useFetchContactsQuery } from '../../redux/contacts/contactsSlice';
+import Loader from 'react-loader-spinner';
 
-function ContactForm({ onSubmit }) {
+function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const [createContact, { isLoading, isSuccess }] = useCreateContactMutation();
+  const [createContact, { isLoading: isUpdating }] = useCreateContactMutation();
+  const { data: contacts } = useFetchContactsQuery();
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -27,7 +30,10 @@ function ContactForm({ onSubmit }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    createContact(name, number);
+    contacts.some(contact => contact.name === name)
+      ? alert(`${name} is already in contacts`)
+      : createContact(name, number);
+
     reset();
   };
 
@@ -64,8 +70,18 @@ function ContactForm({ onSubmit }) {
           required
         />
       </label>
-      <button type="submit" className={s.btn}>
-        Add contact
+      <button type="submit" className={s.btn} disabled={isUpdating}>
+        {isUpdating ? (
+          <Loader
+            type="Circles"
+            color="lightblue"
+            height={25}
+            width={25}
+            timeout={0}
+          />
+        ) : (
+          'Add contact'
+        )}
       </button>
     </form>
   );

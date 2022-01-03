@@ -8,9 +8,6 @@ import Loader from 'react-loader-spinner';
 const ContactList = () => {
   const { data: contacts, isFetching } = useFetchContactsQuery();
 
-  // const dispatch = useDispatch();
-  // const visibleContacts = useSelector(getVisibleContacts);
-  // const onDelete = id => dispatch(deleteContact(id));
   return (
     <ul className={s.contactList}>
       {isFetching && (

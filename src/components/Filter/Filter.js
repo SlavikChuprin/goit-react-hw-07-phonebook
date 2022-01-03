@@ -4,8 +4,12 @@ import s from './Filter.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { filterContact } from '../../redux/contacts/actions';
 import { getFilter, getContacts } from '../../redux/contacts/selectors';
+import { useState } from 'react';
 
 const Filter = ({ value, onChange }) => {
+  const { data: contacts } = useFetchContactsQuery();
+
+  const [filter, getFilter] = useState(contacts);
   const dispatch = useDispatch();
   const filter = useSelector(getFilter);
   const contacts = useSelector(getContacts);

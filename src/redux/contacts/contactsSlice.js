@@ -29,6 +29,10 @@ export const contactsApi = createApi({
       }),
       invalidatesTags: ['contact'],
     }),
+    filterContacts: builder.query({
+      query: filter => `/contacts/${filter}',
+      providesTags: ['contact'],
+    }),
   }),
 });
 
